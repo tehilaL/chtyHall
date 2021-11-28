@@ -1,0 +1,25 @@
+<table>
+  <tr>
+    <th>תאריך </th>
+    <th (click)="filterByPrices('1. open')">מחיר הפתיחה</th>
+    <th (click)="filterByPrices('2. high')">מחיר הכי גבוה</th>
+    <th (click)="filterByPrices('3. low')">מחיר הכי נמוך</th>
+    <th (click)="filterByPrices('4. close')">מחיר סגירה</th>
+    <th> הפרש המחיר בין פתיחה לסגירה </th>
+  </tr>
+  <ng-container >
+  <tr *ngFor="let key of objectKeys(TimeSeries);let i=index">
+    <td>{{key}}</td>
+    <ng-container *ngFor="let key2 of objectKeys(TimeSeries[key])">
+      <td *ngIf="key2=='1. open'||key2=='2. high'||key2=='3. low'||key2=='4. close'">{{TimeSeries[key][key2]}}</td>
+    </ng-container>
+    <td>{{TimeSeries[key]['1. open']-TimeSeries[key]['4. close']}}</td>
+  </tr>
+</ng-container>
+</table>
+<div>
+<button (click)="calculateMaximumProfitDateNotSort()"> חישוב כשתאריך לא ממוין</button>
+
+  <label>מכירה:{{maxSelling.key}}</label>
+  <label>קניה:{{minBuying.key}}</label>
+  <label>הפרש:{{hefresh}}</label>
